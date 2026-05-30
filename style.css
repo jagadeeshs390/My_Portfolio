@@ -145,6 +145,7 @@ nav .active {
   cursor: pointer;
   transition: 0.3s;
   text-wrap: nowrap;
+  text-decoration: none;
 }
 
 .btn:hover{
@@ -312,7 +313,18 @@ nav .active {
   .Buttons{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .btn, .btn-outline {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 15px;
   }
 
   .hero{
