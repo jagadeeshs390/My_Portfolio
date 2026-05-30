@@ -258,7 +258,7 @@ nav .active {
 
 
 
-@media (max-width: 980px) {
+@media (max-width: 0px) {
 
   /* Hide background video on mobile/tablet to save network bandwidth and GPU decoding cycles */
   .back-vid {
@@ -452,7 +452,7 @@ nav .active {
   }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 0px) {
   .hero-img {
     width: 70vw;
     height: 70vw;
@@ -922,7 +922,7 @@ html {
 }
 
 /* Responsive grid for projects */
-@media (max-width: 980px) {
+@media (max-width: 0px) {
   .projects-grid {
     grid-template-columns: 1fr;
   }
@@ -1157,7 +1157,7 @@ html {
 }
 
 /* Responsive grid for projects */
-@media (max-width: 980px) {
+@media (max-width: 0px) {
   .projects-grid {
     grid-template-columns: 1fr;
   }
