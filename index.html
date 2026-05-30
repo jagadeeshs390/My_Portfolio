@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1200">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jagadeeshwaran S | Cybersecurity Portfolio</title>
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="style.css">
@@ -44,16 +44,10 @@
           actively bridge the gap between classroom theory and real-world adversarial environments by preparing for
           industry-respected certifications like CEH and OSCP, aiming to think like a hacker to secure enterprise nodes.
         </p>
-        <div class="Buttons">
-          <a href="images/Resume.pdf" target="_blank" class="btn" data-aos="zoom-in-right" data-aos-duration="1000"
-            data-aos-delay="1100" style="text-decoration: none;">Resume</a>
-          <ul class="ul-icons">
-            <li><a href="https://www.linkedin.com/in/jagadeeshwaran1508/" target="_blank" rel="noopener noreferrer"
-                data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1200" title="LinkedIn"><i
-                  class='bx bxl-linkedin'></i></a></li>
-            <li><a href="https://github.com/jagadeeshs390" target="_blank" rel="noopener noreferrer" data-aos="fade-up"
-                data-aos-duration="1000" data-aos-delay="1300" title="GitHub"><i class='bx bxl-github'></i></a></li>
-          </ul>
+        <div class="Buttons" data-aos="zoom-in-right" data-aos-duration="1000" data-aos-delay="1100">
+          <a href="images/Resume.pdf" target="_blank" class="btn" style="text-decoration: none;">Resume</a>
+          <a href="#" id="certs-link" class="btn-outline">Course Certifications</a>
+          <a href="#" id="internships-link" class="btn-outline">Internships Done</a>
         </div>
       </div>
 
@@ -73,7 +67,7 @@
       </div>
       <div class="info-card" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="1800">
         <h1>2</h1>
-        <p>Projects <br>
+        <p>Projects</p>
       </div>
     </div>
 
@@ -450,6 +444,50 @@
         });
       }
 
+      // Certifications Modal Logic
+      const certsLink = document.getElementById('certs-link');
+      const certsModal = document.getElementById('certs-modal');
+      const certsModalCloseBtn = document.getElementById('certs-modal-close-btn');
+
+      if (certsLink && certsModal && certsModalCloseBtn) {
+        certsLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          certsModal.classList.add('active');
+        });
+
+        certsModalCloseBtn.addEventListener('click', () => {
+          certsModal.classList.remove('active');
+        });
+
+        certsModal.addEventListener('click', (e) => {
+          if (e.target === certsModal) {
+            certsModal.classList.remove('active');
+          }
+        });
+      }
+
+      // Internships Modal Logic
+      const internshipsLink = document.getElementById('internships-link');
+      const internshipsModal = document.getElementById('internships-modal');
+      const internshipsModalCloseBtn = document.getElementById('internships-modal-close-btn');
+
+      if (internshipsLink && internshipsModal && internshipsModalCloseBtn) {
+        internshipsLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          internshipsModal.classList.add('active');
+        });
+
+        internshipsModalCloseBtn.addEventListener('click', () => {
+          internshipsModal.classList.remove('active');
+        });
+
+        internshipsModal.addEventListener('click', (e) => {
+          if (e.target === internshipsModal) {
+            internshipsModal.classList.remove('active');
+          }
+        });
+      }
+
       // General Keyboard Navigation (ESC to close active modals)
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -516,6 +554,109 @@
           <div class="skill-modal-tags" id="skill-modal-tags-container">
             <!-- Dynamic tags injected here -->
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Course Certifications Modal -->
+  <div class="modal-overlay" id="certs-modal">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <h2>SECURE_VAULT // COURSE_CERTIFICATIONS</h2>
+        <button class="modal-close" id="certs-modal-close-btn">&times;</button>
+      </div>
+      <p class="modal-subtitle">Verified cryptographic and academic achievements.</p>
+
+      <div class="certs-grid">
+        <!-- Certificate 1: Google Foundations of Cybersecurity -->
+        <div class="cert-card">
+          <div class="cert-icon-wrapper"><i class='bx bx-shield-quarter'></i></div>
+          <div class="cert-info">
+            <h3>Google Foundations of Cybersecurity</h3>
+            <p class="cert-issuer">Coursera | Issued Apr 2025</p>
+            <p class="cert-desc">Threat identification, asset security management, and foundational offensive/defensive cybersecurity skills. (ID: AMRA6T1H1VEM)</p>
+          </div>
+          <a href="images/Google_Cybersecurity_Cert.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
+        </div>
+
+        <!-- Certificate 2: The Joy of Computing using Python -->
+        <div class="cert-card">
+          <div class="cert-icon-wrapper"><i class='bx bxl-python'></i></div>
+          <div class="cert-info">
+            <h3>The Joy of Computing using Python</h3>
+            <p class="cert-issuer">NPTEL | Issued Nov 2025</p>
+            <p class="cert-desc">Advanced algorithms, modular structures, and logical reasoning using Python. (ID: NPTEL25CS103S107510078310875236)</p>
+          </div>
+          <a href="images/Joy_Of_Python_Cert.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
+        </div>
+
+        <!-- Certificate 3: Python for Data Science -->
+        <div class="cert-card">
+          <div class="cert-icon-wrapper"><i class='bx bx-bar-chart-alt-2'></i></div>
+          <div class="cert-info">
+            <h3>Python for Data Science</h3>
+            <p class="cert-issuer">NPTEL | Issued Apr 2025</p>
+            <p class="cert-desc">Data analysis pipelines, numerical calculations, and computational models in Python. (ID: NPTEL25CS60S44330221701385015)</p>
+          </div>
+          <a href="images/Python_Data_Science_Cert.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
+        </div>
+
+        <!-- Certificate 4: Design Thinking - A Primer -->
+        <div class="cert-card">
+          <div class="cert-icon-wrapper"><i class='bx bx-bulb'></i></div>
+          <div class="cert-info">
+            <h3>Design Thinking - A Primer</h3>
+            <p class="cert-issuer">NPTEL | Issued Sep 2025</p>
+            <p class="cert-desc">Agile & waterfall methodologies, human-centric design architectures, and prototype iteration pipelines. (ID: NPTEL25MG106S433202272)</p>
+          </div>
+          <a href="images/Design_Thinking_Cert.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
+        </div>
+
+        <!-- Certificate 5: Introduction to Microsoft Azure Cloud Services -->
+        <div class="cert-card">
+          <div class="cert-icon-wrapper"><i class='bx bx-cloud'></i></div>
+          <div class="cert-info">
+            <h3>Introduction to Microsoft Azure Cloud Services</h3>
+            <p class="cert-issuer">Coursera | Issued Sep 2025</p>
+            <p class="cert-desc">Deploying secure instances, provisioning cloud resources, and orchestrating server nodes in Microsoft Azure. (ID: V66RP1UA5CST)</p>
+          </div>
+          <a href="images/Azure_Cloud_Cert.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
+        </div>
+
+        <!-- Certificate 6: Cloud Computing -->
+        <div class="cert-card">
+          <div class="cert-icon-wrapper"><i class='bx bx-cloud-lightning'></i></div>
+          <div class="cert-info">
+            <h3>Cloud Computing</h3>
+            <p class="cert-issuer">NPTEL | Course Completion</p>
+            <p class="cert-desc">Principles of distributed virtualization, resource scaling policies, virtualization architectures, and secure cloud node deployments.</p>
+          </div>
+          <a href="images/Cloud_Computing_Cert.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Internships Modal -->
+  <div class="modal-overlay" id="internships-modal">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <h2>SECURE_BIOS // INTERNSHIPS</h2>
+        <button class="modal-close" id="internships-modal-close-btn">&times;</button>
+      </div>
+      <p class="modal-subtitle">Verified professional training and industry experience.</p>
+
+      <div class="certs-grid">
+        <!-- Internship 1: RHCSA Training & Internship -->
+        <div class="cert-card">
+          <div class="cert-icon-wrapper"><i class='bx bx-briefcase'></i></div>
+          <div class="cert-info">
+            <h3>RHCSA Training & Internship Certificate</h3>
+            <p class="cert-issuer">Advantage Pro | Dec 2025 - Jan 2026</p>
+            <p class="cert-desc">Completed comprehensive hands-on training and on-site internship focusing on Red Hat Enterprise Linux (RHEL), enterprise server installations, identity provisioning, storage configurations, and network security diagnostics.</p>
+          </div>
+          <a href="images/RHCSA_Internship_Cert.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
         </div>
       </div>
     </div>
