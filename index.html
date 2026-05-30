@@ -22,7 +22,8 @@
         <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"><a href="#" id="about-link">About</a></li>
         <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300"><a href="#projects-section"
             id="projects-link">Projects</a></li>
-        <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><a href="#skills-section" id="skills-link">Skills</a></li>
+        <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><a href="#skills-section"
+            id="skills-link">Skills</a></li>
         <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><a href="#" id="contact-link">Contact</a>
         </li>
         <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
@@ -67,12 +68,12 @@
         <p>Years of <br> Experience</p>
       </div>
       <div class="info-card" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="1700">
-        <h1>2+</h1>
+        <h1>6+</h1>
         <p>Technical <br> Skills</p>
       </div>
       <div class="info-card" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="1800">
         <h1>2</h1>
-        <p>Projects <br> Completed</p>
+        <p>Projects <br>
       </div>
     </div>
 
@@ -117,7 +118,7 @@
     <div class="skills-sec" id="skills-section" data-aos="fade-up" data-aos-duration="1200">
       <h2 class="sec-title">Skills</h2>
       <p class="sec-subtitle">Specialized technical competencies and operational proficiencies.</p>
-      
+
       <div class="skills-container-centered">
         <!-- Left Panel: Skill Access Deck -->
         <div class="skills-sidebar">
@@ -333,8 +334,76 @@
         });
       }
 
+      // Skills Modal Data
+      const skillsData = {
+        kali: {
+          name: 'Kali Linux',
+          category: 'Offensive Security',
+          icon: 'bx bx-terminal',
+          description: 'Kali Linux is a Debian-derived Linux distribution designed for digital forensics and penetration testing. It is the industry-standard OS for security professionals and ethical hackers worldwide, featuring hundreds of pre-installed, top-tier utilities geared toward probing, testing, and securing modern information architectures.',
+          level: 'Expert',
+          percentage: 95,
+          tags: ['Metasploit', 'Nmap', 'Burp Suite', 'Wireshark', 'John the Ripper', 'Hydra', 'Aircrack-ng']
+        },
+        rhcsa: {
+          name: 'RHCSA',
+          category: 'System Hardening',
+          icon: 'bx bx-server',
+          description: 'Red Hat Certified System Administrator (RHCSA) demonstrates core systems administration competencies in Red Hat Enterprise Linux. This spans system hardening, secure storage provisioning via LUKS, active identity & access management, firewall orchestrations, and SELinux policy configurations to enforce absolute system integrity.',
+          level: 'Advanced',
+          percentage: 85,
+          tags: ['RHEL', 'SELinux', 'FirewallD', 'LUKS Encryption', 'SSH Hardening', 'User Policies', 'Storage Mgmt']
+        },
+        python: {
+          name: 'Python',
+          category: 'Exploit Scripts',
+          icon: 'bx bxl-python',
+          description: 'Python is the quintessential language for security engineering. Used to develop custom threat-validation mechanisms, build high-performance network sockets, automate vulnerability reconnaissance pipelines, parse raw intelligence feeds, and craft precise offensive payloads for tactical audits.',
+          level: 'Advanced',
+          percentage: 90,
+          tags: ['Socket Programming', 'Payload Dev', 'Scapy', 'Automated Fuzzers', 'Exploit Dev', 'API Automation']
+        },
+        vibe: {
+          name: 'Vibe Coding',
+          category: 'AI Orchestration',
+          icon: 'bx bx-bolt-circle',
+          description: 'Vibe Coding represents leveraging advanced, multi-agent generative systems to automate the software lifecycle. Using prompt-level abstractions and direct structural control, it bypasses boilerplate scripting to rapidly deploy elite, custom cybersecurity scripts and dashboards.',
+          level: 'Expert',
+          percentage: 95,
+          tags: ['Prompt Engineering', 'AI Agents', 'Rapid Prototyping', 'Auto-Scripting', 'LLM Integration']
+        },
+        cprog: {
+          name: 'C Programming',
+          category: 'Low-Level Systems',
+          icon: 'bx bx-code-alt',
+          description: 'C provides low-level control over system hardware and memory. Mastering C is critical for dissecting compiled binaries, developing kernel modules, scripting lightweight shellcode, conducting security audits against memory-unsafe systems, and understanding memory exploitation techniques.',
+          level: 'Intermediate',
+          percentage: 75,
+          tags: ['Memory Management', 'Pointers', 'Shellcode', 'Buffer Overflows', 'Binary Analysis', 'Syscalls']
+        },
+        os: {
+          name: 'Operating Systems',
+          category: 'Kernel Mechanics',
+          icon: 'bx bx-desktop',
+          description: 'Operating Systems kernel mechanics involve the structural layers governing hardware and user-space interactions. A deep understanding of virtual memory tables, ring architectures, processes scheduler threads, system calls interceptors, and privilege boundaries is foundational for high-level exploit analysis.',
+          level: 'Advanced',
+          percentage: 80,
+          tags: ['Kernel Space', 'Process Isolation', 'Virtual Memory', 'Syscall Hooks', 'Privilege Levels', 'File Systems']
+        }
+      };
+
+      // Skill Modal DOM Elements
+      const skillModal = document.getElementById('skill-modal');
+      const skillModalCloseBtn = document.getElementById('skill-modal-close-btn');
+      const skillModalIcon = document.getElementById('skill-modal-icon');
+      const skillModalName = document.getElementById('skill-modal-name');
+      const skillModalCategory = document.getElementById('skill-modal-category');
+      const skillModalDesc = document.getElementById('skill-modal-desc');
+      const skillModalTagsContainer = document.getElementById('skill-modal-tags-container');
+
       // Active Skill Tab Cards Selector Logic
-      window.switchSkill = function(skillId) {
+      window.switchSkill = function (skillId) {
+        // 1. Highlight clicked tab card
         const cards = document.querySelectorAll('.skill-tab-card');
         cards.forEach(c => {
           if (c.getAttribute('data-skill-id') === skillId) {
@@ -343,7 +412,53 @@
             c.classList.remove('active');
           }
         });
+
+        // 2. Populate skill modal data if valid
+        const data = skillsData[skillId];
+        if (data && skillModal) {
+          if (skillModalIcon) skillModalIcon.className = data.icon;
+          if (skillModalName) skillModalName.textContent = data.name;
+          if (skillModalCategory) skillModalCategory.textContent = data.category;
+          if (skillModalDesc) skillModalDesc.textContent = data.description;
+
+          // Populate tag elements
+          if (skillModalTagsContainer) {
+            skillModalTagsContainer.innerHTML = '';
+            data.tags.forEach(tag => {
+              const tagEl = document.createElement('span');
+              tagEl.className = 'skill-modal-tag';
+              tagEl.textContent = tag;
+              skillModalTagsContainer.appendChild(tagEl);
+            });
+          }
+
+          // 3. Open Modal
+          skillModal.classList.add('active');
+        }
       };
+
+      // Modal Close Event Handlers
+      if (skillModal && skillModalCloseBtn) {
+        skillModalCloseBtn.addEventListener('click', () => {
+          skillModal.classList.remove('active');
+        });
+
+        skillModal.addEventListener('click', (e) => {
+          if (e.target === skillModal) {
+            skillModal.classList.remove('active');
+          }
+        });
+      }
+
+      // General Keyboard Navigation (ESC to close active modals)
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          const activeModals = document.querySelectorAll('.modal-overlay.active');
+          activeModals.forEach(modal => {
+            modal.classList.remove('active');
+          });
+        }
+      });
     });
   </script>
 
@@ -367,6 +482,44 @@
     </div>
   </div>
 
+  <!-- Premium Skill Details Modal -->
+  <div class="modal-overlay" id="skill-modal">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <h2>SECURE_SKILL // DETAILS</h2>
+        <button class="modal-close" id="skill-modal-close-btn">&times;</button>
+      </div>
+      <p class="modal-subtitle">Operational profile and technical competencies.</p>
+
+      <div class="skill-modal-body">
+        <!-- Skill Meta Info (Icon + Name + Category) -->
+        <div class="skill-modal-meta-row">
+          <div class="skill-modal-icon-wrapper">
+            <i class="bx bx-terminal" id="skill-modal-icon"></i>
+          </div>
+          <div>
+            <h3 class="skill-modal-name" id="skill-modal-name">Kali Linux</h3>
+            <span class="skill-modal-category" id="skill-modal-category">OFFENSIVE SECURITY</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="skill-modal-desc-box">
+          <p class="skill-modal-desc" id="skill-modal-desc">
+            Kali Linux is a Debian-derived Linux distribution designed for digital forensics and penetration testing...
+          </p>
+        </div>
+
+        <!-- Subskills / Frameworks tags -->
+        <div>
+          <h4 class="skill-modal-section-title">Core Competencies & Tools</h4>
+          <div class="skill-modal-tags" id="skill-modal-tags-container">
+            <!-- Dynamic tags injected here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 
