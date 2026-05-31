@@ -82,8 +82,8 @@
           <div class="project-details">
             <h3>AgroSonic Defence System</h3>
             <p class="project-desc">A fully automated, adaptive crop protection system integrating <strong>ESP32
-                processing</strong> and **IoT sensors** (PIR & Ultrasonic) to validate threats. Employs sensor noise
-              filtering, dual-sensor confirmation, and real-time **Machine Learning classification** (Bird/Animal/Human)
+                processing</strong> and <strong>IoT sensors</strong> (PIR & Ultrasonic) to validate threats. Employs sensor noise
+              filtering, dual-sensor confirmation, and real-time <strong>Machine Learning classification</strong> (Bird/Animal/Human)
               to activate custom sound frequencies, visual LED alerts, and mobile push notifications.</p>
             <div class="project-tags">
               <span>ESP32</span><span>IoT Sensors</span><span>Machine Learning</span><span>Mobile Integration</span>
@@ -117,7 +117,7 @@
         <!-- Left Panel: Skill Access Deck -->
         <div class="skills-sidebar">
           <!-- Skill: Kali Linux -->
-          <div class="skill-tab-card active" data-skill-id="kali" onclick="switchSkill('kali')">
+          <div class="skill-tab-card active" data-skill-id="kali">
             <div class="card-glow"></div>
             <div class="skill-tab-icon"><i class='bx bx-terminal'></i></div>
             <div class="skill-tab-meta">
@@ -128,7 +128,7 @@
           </div>
 
           <!-- Skill: RHCSA -->
-          <div class="skill-tab-card" data-skill-id="rhcsa" onclick="switchSkill('rhcsa')">
+          <div class="skill-tab-card" data-skill-id="rhcsa">
             <div class="card-glow"></div>
             <div class="skill-tab-icon"><i class='bx bx-server'></i></div>
             <div class="skill-tab-meta">
@@ -139,7 +139,7 @@
           </div>
 
           <!-- Skill: Python -->
-          <div class="skill-tab-card" data-skill-id="python" onclick="switchSkill('python')">
+          <div class="skill-tab-card" data-skill-id="python">
             <div class="card-glow"></div>
             <div class="skill-tab-icon"><i class='bx bxl-python'></i></div>
             <div class="skill-tab-meta">
@@ -150,7 +150,7 @@
           </div>
 
           <!-- Skill: Vibe Coding -->
-          <div class="skill-tab-card" data-skill-id="vibe" onclick="switchSkill('vibe')">
+          <div class="skill-tab-card" data-skill-id="vibe">
             <div class="card-glow"></div>
             <div class="skill-tab-icon"><i class='bx bx-bolt-circle'></i></div>
             <div class="skill-tab-meta">
@@ -161,7 +161,7 @@
           </div>
 
           <!-- Skill: C Programming -->
-          <div class="skill-tab-card" data-skill-id="cprog" onclick="switchSkill('cprog')">
+          <div class="skill-tab-card" data-skill-id="cprog">
             <div class="card-glow"></div>
             <div class="skill-tab-icon"><i class='bx bx-code-alt'></i></div>
             <div class="skill-tab-meta">
@@ -172,7 +172,7 @@
           </div>
 
           <!-- Skill: Operating Systems -->
-          <div class="skill-tab-card" data-skill-id="os" onclick="switchSkill('os')">
+          <div class="skill-tab-card" data-skill-id="os">
             <div class="card-glow"></div>
             <div class="skill-tab-icon"><i class='bx bx-desktop'></i></div>
             <div class="skill-tab-meta">
@@ -396,7 +396,7 @@
       const skillModalTagsContainer = document.getElementById('skill-modal-tags-container');
 
       // Active Skill Tab Cards Selector Logic
-      window.switchSkill = function (skillId) {
+      const switchSkill = function (skillId) {
         // 1. Highlight clicked tab card
         const cards = document.querySelectorAll('.skill-tab-card');
         cards.forEach(c => {
@@ -430,6 +430,15 @@
           skillModal.classList.add('active');
         }
       };
+
+      // Bind dynamic click events to skill cards
+      const skillTabCards = document.querySelectorAll('.skill-tab-card');
+      skillTabCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const skillId = card.getAttribute('data-skill-id');
+          switchSkill(skillId);
+        });
+      });
 
       // Modal Close Event Handlers
       if (skillModal && skillModalCloseBtn) {
