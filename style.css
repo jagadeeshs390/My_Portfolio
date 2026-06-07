@@ -462,38 +462,6 @@ nav .active {
     font-size: 16px;
     letter-spacing: 1px;
   }
-
-  .certs-grid {
-    max-height: 50vh;
-  }
-
-  .cert-card {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: 
-      "icon info"
-      "button button";
-    gap: 12px;
-    align-items: start;
-    padding: 16px;
-  }
-  
-  .cert-icon-wrapper {
-    grid-area: icon;
-    margin-right: 0;
-  }
-  
-  .cert-info {
-    grid-area: info;
-    margin-right: 0;
-  }
-  
-  .cert-view-btn {
-    grid-area: button;
-    justify-content: center;
-    width: 100%;
-    margin-top: 5px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -1380,15 +1348,65 @@ body.light-theme .btn-outline:hover {
 /* --------------------------------------------------------------------------
    PREMIUM CERTIFICATIONS MODAL GRID & CARD STYLINGS
    -------------------------------------------------------------------------- */
-.certs-grid {
+.certs-modal-card {
+  max-width: 980px;
+  width: 92%;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Filter Tabs */
+.certs-filter-container {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-height: 400px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0 25px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(74, 207, 238, 0.15);
+}
+
+.filter-tab {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(74, 207, 238, 0.15);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-tab i {
+  font-size: 15px;
+}
+
+.filter-tab:hover {
+  background-color: rgba(74, 207, 238, 0.08);
+  color: #4acfee;
+  border-color: #4acfee;
+  transform: translateY(-2px);
+}
+
+.filter-tab.active {
+  background-color: #4acfee;
+  color: #0b0e14;
+  border-color: #4acfee;
+  box-shadow: 0 0 15px rgba(74, 207, 238, 0.4);
+}
+
+/* Certs Grid */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  max-height: 460px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 8px;
-  margin-top: 15px;
+  padding: 10px 10px 10px 2px;
+  margin-top: 10px;
 }
 
 /* Scrollbar styling for certs list */
@@ -1407,80 +1425,293 @@ body.light-theme .btn-outline:hover {
   background: #4acfee;
 }
 
+/* Certificate Cards */
 .cert-card {
-  display: flex;
-  align-items: center;
-  padding: 16px 20px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(74, 207, 238, 0.15);
-  border-radius: 16px;
-  transition: all 0.3s ease;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "icon info"
+    "blank button";
+  gap: 16px;
+  padding: 22px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(74, 207, 238, 0.12);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  box-sizing: border-box;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cert-card.filtered-in {
+  animation: filterIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cert-card.filtered-out {
+  animation: filterOut 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes filterIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes filterOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(5px);
+  }
 }
 
 .cert-card:hover {
-  background-color: rgba(74, 207, 238, 0.08);
+  background-color: rgba(74, 207, 238, 0.06);
   border-color: #4acfee;
-  box-shadow: 0 0 15px rgba(74, 207, 238, 0.15);
-  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(74, 207, 238, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Glowing border accent on hover */
+.cert-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent 50%, rgba(74, 207, 238, 0.35));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.cert-card:hover::before {
+  opacity: 1;
+}
+
+/* Issuer accent glowing themes */
+.cert-card[data-issuer="google"]:hover {
+  border-color: #4285f4;
+  box-shadow: 0 10px 30px rgba(66, 133, 244, 0.2);
+}
+.cert-card[data-issuer="google"]::before {
+  background: linear-gradient(135deg, transparent 40%, rgba(66, 133, 244, 0.5));
+}
+.cert-card[data-issuer="google"] .cert-icon-wrapper {
+  color: #4285f4;
+  background-color: rgba(66, 133, 244, 0.15);
+  border-color: rgba(66, 133, 244, 0.3);
+}
+.cert-card[data-issuer="google"]:hover .cert-icon-wrapper {
+  background-color: #4285f4;
+  color: #0b0e14;
+  box-shadow: 0 0 12px rgba(66, 133, 244, 0.5);
+}
+
+.cert-card[data-issuer="azure"]:hover {
+  border-color: #0078d4;
+  box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2);
+}
+.cert-card[data-issuer="azure"]::before {
+  background: linear-gradient(135deg, transparent 40%, rgba(0, 120, 212, 0.5));
+}
+.cert-card[data-issuer="azure"] .cert-icon-wrapper {
+  color: #0078d4;
+  background-color: rgba(0, 120, 212, 0.15);
+  border-color: rgba(0, 120, 212, 0.3);
+}
+.cert-card[data-issuer="azure"]:hover .cert-icon-wrapper {
+  background-color: #0078d4;
+  color: white;
+  box-shadow: 0 0 12px rgba(0, 120, 212, 0.5);
+}
+
+.cert-card[data-issuer="nptel"]:hover {
+  border-color: #ff9900;
+  box-shadow: 0 10px 30px rgba(255, 153, 0, 0.2);
+}
+.cert-card[data-issuer="nptel"]::before {
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 153, 0, 0.5));
+}
+.cert-card[data-issuer="nptel"] .cert-icon-wrapper {
+  color: #ff9900;
+  background-color: rgba(255, 153, 0, 0.15);
+  border-color: rgba(255, 153, 0, 0.3);
+}
+.cert-card[data-issuer="nptel"]:hover .cert-icon-wrapper {
+  background-color: #ff9900;
+  color: #0b0e14;
+  box-shadow: 0 0 12px rgba(255, 153, 0, 0.5);
 }
 
 .cert-icon-wrapper {
+  grid-area: icon;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
   background-color: rgba(74, 207, 238, 0.15);
   border: 1px solid rgba(74, 207, 238, 0.3);
   font-size: 24px;
   color: #4acfee;
-  margin-right: 18px;
   flex-shrink: 0;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .cert-card:hover .cert-icon-wrapper {
   background-color: #4acfee;
   color: #0b0e14;
-  box-shadow: 0 0 10px #4acfee;
+  box-shadow: 0 0 12px #4acfee;
 }
 
 .cert-info {
-  flex-grow: 1;
-  margin-right: 15px;
-  text-align: left;
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   min-width: 0;
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 .cert-info h3 {
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 15.5px;
+  font-weight: 800;
   color: white;
+  line-height: 1.35;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.cert-card:hover h3 {
+  color: #4acfee;
+}
+.cert-card[data-issuer="google"]:hover h3 {
+  color: #4285f4;
+}
+.cert-card[data-issuer="azure"]:hover h3 {
+  color: #0078d4;
+}
+.cert-card[data-issuer="nptel"]:hover h3 {
+  color: #ff9900;
+}
+
+.cert-badge {
+  align-self: flex-start;
+  font-size: 9.5px;
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
   margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+
+.security-badge {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.dev-badge {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.cloud-badge {
+  background-color: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.methodology-badge {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
 .cert-issuer {
   font-size: 11px;
-  color: #4acfee;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 5px;
-  display: inline-block;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  margin: 1px 0 3px 0;
 }
 
 .cert-desc {
-  font-size: 12px;
+  font-size: 12.5px;
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.5;
+  margin: 4px 0 10px 0;
+  text-align: justify;
+}
+
+.cert-id {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  max-width: 100%;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  transition: all 0.3s ease;
+}
+
+.cert-id i {
+  font-size: 13px;
+}
+
+.cert-card:hover .cert-id {
+  background-color: rgba(74, 207, 238, 0.06);
+  border-color: rgba(74, 207, 238, 0.2);
+  color: #4acfee;
+}
+.cert-card[data-issuer="google"]:hover .cert-id {
+  background-color: rgba(66, 133, 244, 0.06);
+  border-color: rgba(66, 133, 244, 0.2);
+  color: #4285f4;
+}
+.cert-card[data-issuer="azure"]:hover .cert-id {
+  background-color: rgba(0, 120, 212, 0.06);
+  border-color: rgba(0, 120, 212, 0.2);
+  color: #0078d4;
+}
+.cert-card[data-issuer="nptel"]:hover .cert-id {
+  background-color: rgba(255, 153, 0, 0.06);
+  border-color: rgba(255, 153, 0, 0.2);
+  color: #ff9900;
 }
 
 .cert-view-btn {
+  grid-area: button;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 8px 16px;
   background-color: rgba(74, 207, 238, 0.1);
@@ -1493,15 +1724,73 @@ body.light-theme .btn-outline:hover {
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  align-self: center;
+  justify-self: end;
 }
 
 .cert-view-btn:hover {
   background-color: #4acfee;
-  color: #0f172a;
+  color: #0b0e14;
   box-shadow: 0 0 10px #4acfee;
 }
 
+.cert-card[data-issuer="google"] .cert-view-btn {
+  background-color: rgba(66, 133, 244, 0.1);
+  border-color: rgba(66, 133, 244, 0.3);
+  color: #4285f4;
+}
+.cert-card[data-issuer="google"] .cert-view-btn:hover {
+  background-color: #4285f4;
+  color: #0b0e14;
+  box-shadow: 0 0 10px #4285f4;
+}
+
+.cert-card[data-issuer="azure"] .cert-view-btn {
+  background-color: rgba(0, 120, 212, 0.1);
+  border-color: rgba(0, 120, 212, 0.3);
+  color: #0078d4;
+}
+.cert-card[data-issuer="azure"] .cert-view-btn:hover {
+  background-color: #0078d4;
+  color: white;
+  box-shadow: 0 0 10px #0078d4;
+}
+
+.cert-card[data-issuer="nptel"] .cert-view-btn {
+  background-color: rgba(255, 153, 0, 0.1);
+  border-color: rgba(255, 153, 0, 0.3);
+  color: #ff9900;
+}
+.cert-card[data-issuer="nptel"] .cert-view-btn:hover {
+  background-color: #ff9900;
+  color: #0b0e14;
+  box-shadow: 0 0 10px #ff9900;
+}
+
 /* Light Theme overrides for Certs Modal */
+body.light-theme .certs-filter-container {
+  border-bottom-color: rgba(2, 132, 199, 0.15);
+}
+
+body.light-theme .filter-tab {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-color: rgba(2, 132, 199, 0.15);
+  color: #334155;
+}
+
+body.light-theme .filter-tab:hover {
+  background-color: rgba(2, 132, 199, 0.08);
+  color: #0284c7;
+  border-color: #0284c7;
+}
+
+body.light-theme .filter-tab.active {
+  background-color: #0284c7;
+  color: white;
+  border-color: #0284c7;
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.3);
+}
+
 body.light-theme .certs-grid::-webkit-scrollbar-thumb {
   background: rgba(2, 132, 199, 0.3);
 }
@@ -1517,11 +1806,15 @@ body.light-theme .cert-card {
 body.light-theme .cert-card:hover {
   background-color: rgba(2, 132, 199, 0.05);
   border-color: #0284c7;
-  box-shadow: 0 0 15px rgba(2, 132, 199, 0.15);
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.1);
+}
+
+body.light-theme .cert-card::before {
+  background: linear-gradient(135deg, transparent 50%, rgba(2, 132, 199, 0.2));
 }
 
 body.light-theme .cert-icon-wrapper {
-  background-color: rgba(2, 132, 199, 0.1);
+  background-color: rgba(2, 132, 199, 0.08);
   border-color: rgba(2, 132, 199, 0.25);
   color: #0284c7;
 }
@@ -1536,6 +1829,10 @@ body.light-theme .cert-info h3 {
   color: #0f172a;
 }
 
+body.light-theme .cert-card:hover h3 {
+  color: #0284c7;
+}
+
 body.light-theme .cert-issuer {
   color: #0284c7;
 }
@@ -1544,9 +1841,21 @@ body.light-theme .cert-desc {
   color: #475569;
 }
 
+body.light-theme .cert-id {
+  background-color: rgba(2, 132, 199, 0.06);
+  border-color: rgba(2, 132, 199, 0.15);
+  color: #0284c7;
+}
+
+body.light-theme .cert-card:hover .cert-id {
+  background-color: rgba(2, 132, 199, 0.08);
+  border-color: rgba(2, 132, 199, 0.25);
+  color: #0284c7;
+}
+
 body.light-theme .cert-view-btn {
-  background-color: rgba(2, 132, 199, 0.1);
-  border-color: rgba(2, 132, 199, 0.3);
+  background-color: rgba(2, 132, 199, 0.08);
+  border-color: rgba(2, 132, 199, 0.25);
   color: #0284c7;
 }
 
@@ -1554,4 +1863,171 @@ body.light-theme .cert-view-btn:hover {
   background-color: #0284c7;
   color: white;
   box-shadow: 0 0 10px rgba(2, 132, 199, 0.3);
+}
+
+/* Light Theme Issuer Specific overrides */
+body.light-theme .cert-card[data-issuer="google"]:hover {
+  border-color: #1a73e8;
+  box-shadow: 0 10px 25px rgba(26, 115, 232, 0.15);
+}
+body.light-theme .cert-card[data-issuer="google"]::before {
+  background: linear-gradient(135deg, transparent 40%, rgba(26, 115, 232, 0.25));
+}
+body.light-theme .cert-card[data-issuer="google"] .cert-icon-wrapper {
+  color: #1a73e8;
+  background-color: rgba(26, 115, 232, 0.08);
+  border-color: rgba(26, 115, 232, 0.25);
+}
+body.light-theme .cert-card[data-issuer="google"]:hover .cert-icon-wrapper {
+  background-color: #1a73e8;
+  color: white;
+  box-shadow: 0 0 8px rgba(26, 115, 232, 0.3);
+}
+body.light-theme .cert-card[data-issuer="google"] .cert-view-btn {
+  background-color: rgba(26, 115, 232, 0.08);
+  border-color: rgba(26, 115, 232, 0.25);
+  color: #1a73e8;
+}
+body.light-theme .cert-card[data-issuer="google"] .cert-view-btn:hover {
+  background-color: #1a73e8;
+  color: white;
+  box-shadow: 0 0 8px rgba(26, 115, 232, 0.3);
+}
+body.light-theme .cert-card[data-issuer="google"]:hover h3 {
+  color: #1a73e8;
+}
+body.light-theme .cert-card[data-issuer="google"]:hover .cert-id {
+  color: #1a73e8;
+  border-color: rgba(26, 115, 232, 0.25);
+}
+
+body.light-theme .cert-card[data-issuer="azure"]:hover {
+  border-color: #0078d4;
+  box-shadow: 0 10px 25px rgba(0, 120, 212, 0.15);
+}
+body.light-theme .cert-card[data-issuer="azure"]::before {
+  background: linear-gradient(135deg, transparent 40%, rgba(0, 120, 212, 0.25));
+}
+body.light-theme .cert-card[data-issuer="azure"] .cert-icon-wrapper {
+  color: #0078d4;
+  background-color: rgba(0, 120, 212, 0.08);
+  border-color: rgba(0, 120, 212, 0.25);
+}
+body.light-theme .cert-card[data-issuer="azure"]:hover .cert-icon-wrapper {
+  background-color: #0078d4;
+  color: white;
+  box-shadow: 0 0 8px rgba(0, 120, 212, 0.3);
+}
+body.light-theme .cert-card[data-issuer="azure"] .cert-view-btn {
+  background-color: rgba(0, 120, 212, 0.08);
+  border-color: rgba(0, 120, 212, 0.25);
+  color: #0078d4;
+}
+body.light-theme .cert-card[data-issuer="azure"] .cert-view-btn:hover {
+  background-color: #0078d4;
+  color: white;
+  box-shadow: 0 0 8px rgba(0, 120, 212, 0.3);
+}
+body.light-theme .cert-card[data-issuer="azure"]:hover h3 {
+  color: #0078d4;
+}
+body.light-theme .cert-card[data-issuer="azure"]:hover .cert-id {
+  color: #0078d4;
+  border-color: rgba(0, 120, 212, 0.25);
+}
+
+body.light-theme .cert-card[data-issuer="nptel"]:hover {
+  border-color: #d97706;
+  box-shadow: 0 10px 25px rgba(217, 119, 6, 0.15);
+}
+body.light-theme .cert-card[data-issuer="nptel"]::before {
+  background: linear-gradient(135deg, transparent 40%, rgba(217, 119, 6, 0.25));
+}
+body.light-theme .cert-card[data-issuer="nptel"] .cert-icon-wrapper {
+  color: #d97706;
+  background-color: rgba(217, 119, 6, 0.08);
+  border-color: rgba(217, 119, 6, 0.25);
+}
+body.light-theme .cert-card[data-issuer="nptel"]:hover .cert-icon-wrapper {
+  background-color: #d97706;
+  color: white;
+  box-shadow: 0 0 8px rgba(217, 119, 6, 0.3);
+}
+body.light-theme .cert-card[data-issuer="nptel"] .cert-view-btn {
+  background-color: rgba(217, 119, 6, 0.08);
+  border-color: rgba(217, 119, 6, 0.25);
+  color: #d97706;
+}
+body.light-theme .cert-card[data-issuer="nptel"] .cert-view-btn:hover {
+  background-color: #d97706;
+  color: white;
+  box-shadow: 0 0 8px rgba(217, 119, 6, 0.3);
+}
+body.light-theme .cert-card[data-issuer="nptel"]:hover h3 {
+  color: #d97706;
+}
+body.light-theme .cert-card[data-issuer="nptel"]:hover .cert-id {
+  color: #d97706;
+  border-color: rgba(217, 119, 6, 0.25);
+}
+
+body.light-theme .security-badge {
+  background-color: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+body.light-theme .dev-badge {
+  background-color: rgba(5, 150, 105, 0.08);
+  color: #059669;
+  border-color: rgba(5, 150, 105, 0.2);
+}
+
+body.light-theme .cloud-badge {
+  background-color: rgba(37, 99, 235, 0.08);
+  color: #2563eb;
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+body.light-theme .methodology-badge {
+  background-color: rgba(217, 119, 6, 0.08);
+  color: #d97706;
+  border-color: rgba(217, 119, 6, 0.2);
+}
+
+/* Responsiveness overrides for new layout */
+@media (max-width: 768px) {
+  .certs-grid {
+    grid-template-columns: 1fr;
+    max-height: 55vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .cert-card {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "icon"
+      "info"
+      "button";
+    text-align: center;
+  }
+  
+  .cert-icon-wrapper {
+    margin: 0 auto;
+  }
+  
+  .cert-info {
+    align-items: center;
+  }
+  
+  .cert-id {
+    align-self: center;
+  }
+  
+  .cert-view-btn {
+    justify-self: center;
+    width: 100%;
+    margin-top: 5px;
+  }
 }
