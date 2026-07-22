@@ -16,7 +16,7 @@
   </video>
   <section class="main-section">
     <nav>
-      <h1 data-aos="zoom-in" data-aos-duration="1000"><span style="color: #4acfee;">Jaga</span>deesh S</h1>
+      <h1 data-aos="zoom-in" data-aos-duration="1000"><span style="color: #4acfee;">Jaga</span>deeshwaran S</h1>
       <ul>
         <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100"><a class="active" href="#">Home </a></li>
         <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"><a href="#" id="about-link">About</a></li>
@@ -36,8 +36,7 @@
 
     <div class="hero">
       <div class="hero-info">
-        <h1 data-aos="fade-right" data-aos-duration="1000" data-aos-delay="700">Hi, I'm Jagadeeshwaran S</h1>
-        <h2 data-aos="fade-left" data-aos-duration="1000" data-aos-delay="900">I'm a CyberSecurity Student</h2>
+        <h1 data-aos="fade-right" data-aos-duration="1000" data-aos-delay="700">Hi, I'm a Cybersecurity Enthusiast</h1>
         <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1000">Specializing in Offensive Security and
           Ethical Hacking. Armed with a solid academic foundation in computer networking, server systems, and proactive
           threat analysis, I focus on identifying system vulnerabilities and conducting web penetration audits. I
@@ -438,6 +437,15 @@
           const skillId = card.getAttribute('data-skill-id');
           switchSkill(skillId);
         });
+
+        // Cybernetic mouse tracking glow effect for skill cards
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--x', `${x}px`);
+          card.style.setProperty('--y', `${y}px`);
+        });
       });
 
       // Modal Close Event Handlers
@@ -635,13 +643,39 @@
       </div>
 
       <div class="certs-grid">
+        <!-- Certificate: Cisco Networking Basics -->
+        <div class="cert-card" data-category="security" data-issuer="cisco">
+          <div class="cert-icon-wrapper"><i class='bx bx-network-chart'></i></div>
+          <div class="cert-info">
+            <h3>Networking Basics</h3>
+            <span class="cert-badge networking-badge">Networking</span>
+            <p class="cert-issuer"><strong class="issuer-org">Cisco Networking Academy</strong> | Issued Jul 2026</p>
+            <p class="cert-desc">Fundamental network communication concepts, routing protocols, IPv4 and IPv6 addressing, router connectivity, and wireless security configuration.</p>
+            <span class="cert-id"><i class='bx bx-check-shield'></i> Credly Verified</span>
+          </div>
+          <a href="images/Networking Basics.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
+        </div>
+
+        <!-- Certificate: Red Hat System Administration II -->
+        <div class="cert-card" data-category="security" data-issuer="redhat">
+          <div class="cert-icon-wrapper"><i class='bx bx-server'></i></div>
+          <div class="cert-info">
+            <h3>Red Hat System Administration II (RH134)</h3>
+            <span class="cert-badge security-badge">System Security</span>
+            <p class="cert-issuer"><strong class="issuer-org">Red Hat</strong> | Issued Jan 2026</p>
+            <p class="cert-desc">Command-line administration, shell scripting, storage management, security policy configuration, and network service diagnostics on RHEL.</p>
+            <span class="cert-id"><i class='bx bx-check-shield'></i> Credly Verified</span>
+          </div>
+          <a href="images/RedHat Training.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
+        </div>
+
         <!-- Certificate 1: Google Foundations of Cybersecurity -->
         <div class="cert-card" data-category="security" data-issuer="google">
           <div class="cert-icon-wrapper"><i class='bx bx-shield-quarter'></i></div>
           <div class="cert-info">
             <h3>Google Foundations of Cybersecurity</h3>
             <span class="cert-badge security-badge">Security</span>
-            <p class="cert-issuer">Coursera | Issued Apr 2025</p>
+            <p class="cert-issuer"><strong class="issuer-org">Coursera</strong> | Issued Apr 2025</p>
             <p class="cert-desc">Threat identification, asset security management, and foundational offensive/defensive cybersecurity skills.</p>
             <span class="cert-id"><i class='bx bx-id-card'></i> ID: AMRA6T1H1VEM</span>
           </div>
@@ -654,7 +688,7 @@
           <div class="cert-info">
             <h3>The Joy of Computing using Python</h3>
             <span class="cert-badge dev-badge">Python</span>
-            <p class="cert-issuer">NPTEL | Issued Nov 2025</p>
+            <p class="cert-issuer"><strong class="issuer-org">NPTEL</strong> | Issued Nov 2025</p>
             <p class="cert-desc">Advanced algorithms, modular structures, and logical reasoning using Python.</p>
             <span class="cert-id"><i class='bx bx-id-card'></i> ID: NPTEL25CS103S107510078310875236</span>
           </div>
@@ -667,7 +701,7 @@
           <div class="cert-info">
             <h3>Python for Data Science</h3>
             <span class="cert-badge dev-badge">Python</span>
-            <p class="cert-issuer">NPTEL | Issued Apr 2025</p>
+            <p class="cert-issuer"><strong class="issuer-org">NPTEL</strong> | Issued Apr 2025</p>
             <p class="cert-desc">Data analysis pipelines, numerical calculations, and computational models in Python.</p>
             <span class="cert-id"><i class='bx bx-id-card'></i> ID: NPTEL25CS60S44330221701385015</span>
           </div>
@@ -680,7 +714,7 @@
           <div class="cert-info">
             <h3>Design Thinking - A Primer</h3>
             <span class="cert-badge methodology-badge">Methodology</span>
-            <p class="cert-issuer">NPTEL | Issued Sep 2025</p>
+            <p class="cert-issuer"><strong class="issuer-org">NPTEL</strong> | Issued Sep 2025</p>
             <p class="cert-desc">Agile & waterfall methodologies, human-centric design architectures, and prototype iteration pipelines.</p>
             <span class="cert-id"><i class='bx bx-id-card'></i> ID: NPTEL25MG106S433202272</span>
           </div>
@@ -693,7 +727,7 @@
           <div class="cert-info">
             <h3>Introduction to Microsoft Azure Cloud Services</h3>
             <span class="cert-badge cloud-badge">Azure</span>
-            <p class="cert-issuer">Coursera | Issued Sep 2025</p>
+            <p class="cert-issuer"><strong class="issuer-org">Coursera</strong> | Issued Sep 2025</p>
             <p class="cert-desc">Deploying secure instances, provisioning cloud resources, and orchestrating server nodes in Microsoft Azure.</p>
             <span class="cert-id"><i class='bx bx-id-card'></i> ID: V66RP1UA5CST</span>
           </div>
@@ -706,7 +740,7 @@
           <div class="cert-info">
             <h3>Cloud Computing</h3>
             <span class="cert-badge cloud-badge">Cloud</span>
-            <p class="cert-issuer">NPTEL | Issued Apr 2026</p>
+            <p class="cert-issuer"><strong class="issuer-org">NPTEL</strong> | Issued Apr 2026</p>
             <p class="cert-desc">Principles of distributed virtualization, resource scaling policies, virtualization architectures, and secure cloud node deployments.</p>
           </div>
           <a href="images/Cloud_Computing_Cert.pdf" target="_blank" class="cert-view-btn"><i class='bx bx-show'></i> View</a>
@@ -730,7 +764,7 @@
           <div class="cert-icon-wrapper"><i class='bx bx-briefcase'></i></div>
           <div class="cert-info">
             <h3>RHCSA Training & Internship Certificate</h3>
-            <p class="cert-issuer">Advantage Pro | Dec 2025 - Jan 2026</p>
+            <p class="cert-issuer"><strong class="issuer-org">Advantage Pro</strong> | Dec 2025 - Jan 2026</p>
             <p class="cert-desc">Completed comprehensive hands-on training and on-site internship focusing on Red Hat
               Enterprise Linux (RHEL), enterprise server installations, identity provisioning, storage configurations,
               and network security diagnostics.</p>

@@ -66,7 +66,7 @@ nav{
 
 nav h1{
   color: white;
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 900;
 }
 
@@ -115,10 +115,13 @@ nav .active {
   animation: animate-gradient 2.5s linear infinite;
 }
 
-.hero p{
-  max-width: 450px;
-  margin-top: 7px;
-  margin-bottom: 20px;
+.hero p {
+  max-width: 550px;
+  margin-top: 12px;
+  margin-bottom: 25px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 @keyframes animate-gradient {
@@ -133,7 +136,7 @@ nav .active {
   gap: 15px;
 }
 
-.btn{
+.btn {
   display: inline-block;
   padding: 15px 30px;
   background-color: #4acfee;
@@ -147,12 +150,32 @@ nav .active {
   transition: 0.3s;
   text-wrap: nowrap;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: transparent;
   box-shadow: none;
   color: #4acfee;
+}
+
+.btn::after, .btn-outline::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: rotate(30deg);
+  pointer-events: none;
+  transition: none;
+}
+
+.btn:hover::after, .btn-outline:hover::after {
+  left: 140%;
+  transition: all 0.75s cubic-bezier(0.3, 1, 0.2, 1);
 }
 
 .ul-icons{
@@ -183,7 +206,7 @@ nav .active {
   box-shadow: 0 0 10px #4acfee;
 }
 
-.hero-img{
+.hero-img {
   width: 400px;
   height: 400px;
   background-color: none;
@@ -194,10 +217,23 @@ nav .active {
   overflow: hidden;
   box-shadow: 0 0 10px #4eddfd;
   transition: 0.5s;
+  animation: float 6s ease-in-out infinite;
 }
 
 .hero-img:hover{
   box-shadow: 0 0 25px #4acfee;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .hero-img img{
@@ -300,6 +336,11 @@ nav .active {
     padding: 20px 15px;
   }
 
+  nav h1 {
+    font-size: 26px;
+    white-space: nowrap;
+  }
+
   .main-section nav ul {
     display: flex;
     flex-wrap: wrap;
@@ -354,12 +395,12 @@ nav .active {
   }
 
   .hero p {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     max-width: 100%;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 12px;
+    margin-bottom: 22px;
     text-align: center;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
   .Buttons {
@@ -1120,6 +1161,23 @@ body.light-theme .project-tags span {
   transition: 0.3s;
 }
 
+.card-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle 120px at var(--x, 50%) var(--y, 50%), rgba(74, 207, 238, 0.2), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.skill-tab-card:hover .card-glow {
+  opacity: 1;
+}
+
 .skill-tab-card.active .active-indicator {
   opacity: 1;
 }
@@ -1141,6 +1199,10 @@ body.light-theme .skill-tab-card {
 body.light-theme .skill-tab-card:hover {
   background-color: rgba(2, 132, 199, 0.05);
   border-color: rgba(2, 132, 199, 0.4);
+}
+
+body.light-theme .card-glow {
+  background: radial-gradient(circle 120px at var(--x, 50%) var(--y, 50%), rgba(2, 132, 199, 0.15), transparent 80%);
 }
 
 body.light-theme .skill-tab-card.active {
@@ -1325,6 +1387,8 @@ body.light-theme .skill-modal-tag:hover {
   transition: 0.3s;
   text-wrap: nowrap;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-outline:hover {
@@ -1562,6 +1626,24 @@ body.light-theme .btn-outline:hover {
   box-shadow: 0 0 12px rgba(255, 153, 0, 0.5);
 }
 
+.cert-card[data-issuer="redhat"]:hover {
+  border-color: #ff3b30;
+  box-shadow: 0 10px 30px rgba(255, 59, 48, 0.2);
+}
+.cert-card[data-issuer="redhat"]::before {
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 59, 48, 0.5));
+}
+.cert-card[data-issuer="redhat"] .cert-icon-wrapper {
+  color: #ff3b30;
+  background-color: rgba(255, 59, 48, 0.15);
+  border-color: rgba(255, 59, 48, 0.3);
+}
+.cert-card[data-issuer="redhat"]:hover .cert-icon-wrapper {
+  background-color: #ff3b30;
+  color: #0b0e14;
+  box-shadow: 0 0 12px rgba(255, 59, 48, 0.5);
+}
+
 .cert-icon-wrapper {
   grid-area: icon;
   display: flex;
@@ -1613,6 +1695,9 @@ body.light-theme .btn-outline:hover {
 .cert-card[data-issuer="nptel"]:hover h3 {
   color: #ff9900;
 }
+.cert-card[data-issuer="redhat"]:hover h3 {
+  color: #ff3b30;
+}
 
 .cert-badge {
   align-self: flex-start;
@@ -1629,6 +1714,12 @@ body.light-theme .btn-outline:hover {
   background-color: rgba(239, 68, 68, 0.12);
   color: #f87171;
   border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.networking-badge {
+  background-color: rgba(6, 182, 212, 0.12);
+  color: #22d3ee;
+  border: 1px solid rgba(6, 182, 212, 0.25);
 }
 
 .dev-badge {
@@ -1651,9 +1742,31 @@ body.light-theme .btn-outline:hover {
 
 .cert-issuer {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.55);
   font-weight: bold;
   margin: 1px 0 3px 0;
+}
+
+.issuer-org {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 800;
+  transition: color 0.3s ease;
+}
+
+.cert-card[data-issuer="google"]:hover .issuer-org {
+  color: #4285f4;
+}
+.cert-card[data-issuer="azure"]:hover .issuer-org {
+  color: #0078d4;
+}
+.cert-card[data-issuer="nptel"]:hover .issuer-org {
+  color: #ff9900;
+}
+.cert-card[data-issuer="redhat"]:hover .issuer-org {
+  color: #ff3b30;
+}
+.cert-card[data-issuer="cisco"]:hover .issuer-org {
+  color: #4acfee;
 }
 
 .cert-desc {
@@ -1706,6 +1819,11 @@ body.light-theme .btn-outline:hover {
   background-color: rgba(255, 153, 0, 0.06);
   border-color: rgba(255, 153, 0, 0.2);
   color: #ff9900;
+}
+.cert-card[data-issuer="redhat"]:hover .cert-id {
+  background-color: rgba(255, 59, 48, 0.06);
+  border-color: rgba(255, 59, 48, 0.2);
+  color: #ff3b30;
 }
 
 .cert-view-btn {
@@ -1767,6 +1885,18 @@ body.light-theme .btn-outline:hover {
   color: #0b0e14;
   box-shadow: 0 0 10px #ff9900;
 }
+
+.cert-card[data-issuer="redhat"] .cert-view-btn {
+  background-color: rgba(255, 59, 48, 0.1);
+  border-color: rgba(255, 59, 48, 0.3);
+  color: #ff3b30;
+}
+.cert-card[data-issuer="redhat"] .cert-view-btn:hover {
+  background-color: #ff3b30;
+  color: #0b0e14;
+  box-shadow: 0 0 10px #ff3b30;
+}
+
 
 /* Light Theme overrides for Certs Modal */
 body.light-theme .certs-filter-container {
@@ -1835,8 +1965,29 @@ body.light-theme .cert-card:hover h3 {
 }
 
 body.light-theme .cert-issuer {
+  color: #64748b;
+}
+
+body.light-theme .issuer-org {
+  color: #0f172a;
+}
+
+body.light-theme .cert-card[data-issuer="google"]:hover .issuer-org {
+  color: #1a73e8;
+}
+body.light-theme .cert-card[data-issuer="azure"]:hover .issuer-org {
+  color: #0078d4;
+}
+body.light-theme .cert-card[data-issuer="nptel"]:hover .issuer-org {
+  color: #d97706;
+}
+body.light-theme .cert-card[data-issuer="redhat"]:hover .issuer-org {
+  color: #cc0000;
+}
+body.light-theme .cert-card[data-issuer="cisco"]:hover .issuer-org {
   color: #0284c7;
 }
+
 
 body.light-theme .cert-desc {
   color: #475569;
@@ -1972,10 +2123,52 @@ body.light-theme .cert-card[data-issuer="nptel"]:hover .cert-id {
   border-color: rgba(217, 119, 6, 0.25);
 }
 
+body.light-theme .cert-card[data-issuer="redhat"]:hover {
+  border-color: #cc0000;
+  box-shadow: 0 10px 25px rgba(204, 0, 0, 0.15);
+}
+body.light-theme .cert-card[data-issuer="redhat"]::before {
+  background: linear-gradient(135deg, transparent 40%, rgba(204, 0, 0, 0.25));
+}
+body.light-theme .cert-card[data-issuer="redhat"] .cert-icon-wrapper {
+  color: #cc0000;
+  background-color: rgba(204, 0, 0, 0.08);
+  border-color: rgba(204, 0, 0, 0.25);
+}
+body.light-theme .cert-card[data-issuer="redhat"]:hover .cert-icon-wrapper {
+  background-color: #cc0000;
+  color: white;
+  box-shadow: 0 0 8px rgba(204, 0, 0, 0.3);
+}
+body.light-theme .cert-card[data-issuer="redhat"] .cert-view-btn {
+  background-color: rgba(204, 0, 0, 0.08);
+  border-color: rgba(204, 0, 0, 0.25);
+  color: #cc0000;
+}
+body.light-theme .cert-card[data-issuer="redhat"] .cert-view-btn:hover {
+  background-color: #cc0000;
+  color: white;
+  box-shadow: 0 0 8px rgba(204, 0, 0, 0.3);
+}
+body.light-theme .cert-card[data-issuer="redhat"]:hover h3 {
+  color: #cc0000;
+}
+body.light-theme .cert-card[data-issuer="redhat"]:hover .cert-id {
+  color: #cc0000;
+  border-color: rgba(204, 0, 0, 0.25);
+}
+
+
 body.light-theme .security-badge {
   background-color: rgba(220, 38, 38, 0.08);
   color: #dc2626;
   border-color: rgba(220, 38, 38, 0.2);
+}
+
+body.light-theme .networking-badge {
+  background-color: rgba(8, 145, 178, 0.08);
+  color: #0891b2;
+  border-color: rgba(8, 145, 178, 0.2);
 }
 
 body.light-theme .dev-badge {
